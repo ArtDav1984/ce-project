@@ -1,0 +1,1 @@
+Grafix done with figma (www.figma.com) you can import this file or join @ https://www.figma.com/file/HiZb8TfnkSiC8SFkS0KXs62v/EC-joy-center-app?node-id=1%3A26

@@ -1,0 +1,138 @@
+.post-edit__timepicker
+  +.flatpickr-calendar
+    width 100%
+
+    .flatpickr-am-pm
+      display none
+
+    .numInputWrapper
+      span 
+        display none
+
+.post-edit__timedatepicker
+  +.flatpickr-calendar
+    width 100%
+    padding 10px
+    min-width 220px
+    max-width 300px
+
+    .flatpickr-month
+      position initial
+      text-align left
+      font-weight 500
+      font-size 16px
+      line-height normal
+      color rgba(61, 54, 54, 0.8)
+      font-family "Rubik", sans-serif
+      height auto
+
+      .cur-month
+        &:hover
+          background-color transparent
+
+      .numInputWrapper
+        .cur-year
+          font-weight 500
+          font-size 16px
+          line-height normal
+          color rgba(61, 54, 54, 0.8)
+          font-family "Rubik", sans-serif
+
+        &:hover
+          background-color transparent
+
+        .arrowUp, .arrowDown
+          display none
+
+      .flatpickr-current-month
+        position initial
+        font-size initial
+        width auto
+        left initial
+        text-align left
+        height auto
+        padding 0
+
+    .flatpickr-prev-month
+      position initial
+      order 1
+      width 30px
+      height 30px
+      border 1px solid rgba(0, 0, 0, 0.08)
+      display flex
+      align-items center
+      justify-content center
+      border-radius 50%
+      padding 10px
+    
+    .flatpickr-next-month
+      position initial
+      order 2
+      width 30px
+      height 30px
+      border 1px solid rgba(0, 0, 0, 0.08)
+      display flex
+      align-items center
+      justify-content center
+      border-radius 50%
+      padding 10px
+      margin-left 5px
+
+    .flatpickr-rContainer
+      width 100%
+      margin-top 10px
+
+      .flatpickr-weekday
+        font-family "Rubik", sans-serif
+        font-style normal
+        font-weight 300
+        font-size 12px
+
+      .flatpickr-days, .dayContainer
+        width 100%
+        min-width auto
+        max-width auto
+
+        .flatpickr-day
+          width calc(100% / 7)
+          max-width auto
+          height auto
+          line-height inherit
+          border-radius 50%
+          font-family "Rubik", sans-serif
+          font-style normal
+          font-weight normal
+          font-size 12px
+          line-height normal
+          text-align center
+          padding 7px 0
+
+          &.selected
+            border none
+            background-color $bg-third
+            color #fff
+
+    .flatpickr-time
+      padding-top 10px
+      height auto!important
+      line-height initial
+
+      .numInputWrapper
+        height auto
+
+    .flatpickr-confirm
+      font-size 12px
+      display flex
+      justify-content flex-end
+      align-items center
+
+      span 
+        margin 10px 0 0
+        padding 0px 15px
+        border-radius 12px
+        color #fff
+        cursor pointer
+        color $third-color
+        text-align center
+        background-color $bg-third
+          

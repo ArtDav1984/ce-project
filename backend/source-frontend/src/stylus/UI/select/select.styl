@@ -1,0 +1,75 @@
+.custom-select
+  position relative
+  
+  >span
+    box-shadow 3px 3px 10px $sh-first
+    border-radius 5px
+    font-style normal
+    font-weight normal
+    font-size 14px
+    line-height 15px
+    letter-spacing 0.216667px
+    color $sixts-color
+    padding 14px 30px 12px 16px
+    position relative
+    background-color #fff
+    z-index 0
+    cursor pointer
+    width 100%
+    display inline-block
+    height 41px
+    
+    &:before
+      content ''
+      display inline-block
+      width 10px
+      height 10px
+      border-bottom 2px solid #878585
+      border-right 2px solid #878585
+      transform rotate(45deg)
+      position absolute
+      right 14px
+
+  ul
+    display none
+    position absolute
+    top 100%
+    left 0
+    box-shadow 3px 3px 10px $sh-first
+    border-bottom-left-radius 5px
+    border-bottom-right-radius 5px
+    font-style normal
+    font-weight normal
+    font-size 14px
+    line-height 15px
+    letter-spacing 0.216667px
+    color $sixts-color
+    padding 14px 16px 12px
+    background-color #fff
+    z-index 1
+    width 100%
+    list-style none
+
+    li
+      cursor pointer
+      margin-bottom 10px
+      padding 5px
+      transition background-color .3s
+
+      &:hover
+        background-color rgba(204, 204, 204, 0.1)
+
+      &:last-child
+        margin-bottom 0
+      
+      &.current
+        background-color rgba(204, 204, 204, 0.1)
+
+
+  &.active 
+    >span 
+      border-bottom-left-radius 0
+      border-bottom-right-radius 0
+
+    ul
+      display inline-block

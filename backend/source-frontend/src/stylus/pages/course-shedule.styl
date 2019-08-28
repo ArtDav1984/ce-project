@@ -1,0 +1,193 @@
+.message-wrapper
+  display inline-flex
+  align-items center
+  padding 17px
+  background #FFF0D9
+  border-radius 15px
+  margin-bottom 15px
+
+  svg
+    margin-right 14px
+
+.ds
+  padding 0 7.5px
+
+#day-list
+  margin-top 20px
+
+  >section
+    padding 0 7.5px
+    margin-bottom 10px
+
+    .element__cont
+      position relative
+      padding 20px 28px
+      background-color #fff
+      box-shadow 0px 5px 10px rgba(0, 0, 0, 0.15)
+      border-radius 15px
+
+      >span
+        position absolute
+        right 14px
+        top 14px
+        cursor pointer
+
+      .edit-event-item
+        position absolute
+        left 14px
+        top 13px
+        cursor pointer
+        width 12px
+
+      footer 
+        display flex
+        justify-content center
+
+      header 
+        display flex
+        justify-content center
+        margin-bottom 15px
+        text-align center
+
+        .font-1
+          width 110px
+
+      ul
+
+        li
+          background #FFF0D9
+          border-radius 15px
+          padding 9px 19px
+          margin-bottom 8px
+          display flex
+          align-items center
+
+          .time-cont
+            width 55px
+            min-width 55px
+            margin-right 10px
+            font-weight 300
+            font-size 18px
+            line-height 1
+            color #FD6060
+
+#dayPopup
+  .element__cont
+    width 100%
+    max-width 374px
+    position relative
+    padding 20px 28px
+    background-color #fff
+    box-shadow 0px 5px 10px rgba(0, 0, 0, 0.15)
+    border-radius 15px
+    margin 15px
+
+    > span 
+      position absolute
+      right 14px
+      top 14px
+      cursor pointer
+
+    header 
+      display flex
+      justify-content center
+      margin-bottom 15px
+
+    .list-header
+      margin-bottom 10px
+
+    footer 
+      display flex
+      justify-content flex-end
+
+    .add-new-date
+      display flex
+      border 2px dashed #E4E4E4
+      border-radius 15px
+      padding 10px
+      margin-bottom 15px
+
+      .time-cont
+        width 60px
+        margin-right 10px
+
+        .flatpickr-calendar
+          width 100%
+
+          .arrowUp, .arrowDown
+            display none
+        
+        input
+          width 100%
+          max-width 100%
+          border none
+
+        .date-from
+          margin-bottom 4px
+
+      .time-text
+        flex 1
+        textarea
+          width 100%
+          height 32px
+          border none
+          resize none
+          outline none
+
+    ul
+      margin-bottom 23px
+      max-height 170px
+      overflow-y auto
+
+      li
+        background #FFF0D9
+        border-radius 15px
+        padding 9px 19px
+        margin-bottom 8px
+        display flex
+        align-items center
+        position relative
+
+        .time-cont
+          width 55px
+          min-width 55px
+          margin-right 10px
+          font-weight 300
+          font-size 18px
+          line-height 1
+          color #FD6060
+
+        .controll-el
+          position absolute
+          top 10px
+          right 10px
+          display none
+
+          svg
+            cursor pointer
+
+          .edit-event-item
+            width 12px
+            height 12px
+            margin-right 5px
+
+        &:hover
+          .controll-el
+            display block
+
+    #p-add-event-btn, #p-edit-event-btn
+      margin-right 10px
+
+      &.block
+        background-color #ccc
+
+    
+
+@media screen and (max-width: 545px)
+  .ds
+    padding 0 15px
+
+  #day-list
+
+    >section 
+      padding 0 15px

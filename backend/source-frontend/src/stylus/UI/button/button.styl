@@ -1,0 +1,49 @@
+.button
+  display inline-block
+  font-family 'Exo 2', sans-serif
+  font-style normal
+  font-weight bold
+  font-size 12px
+  text-align center
+  text-transform uppercase
+  border none
+  outline none
+  cursor pointer
+  transition opacity .3s
+
+  &-login
+    color $third-color
+    padding 15.5px 22px 16.5px
+    text-align center
+    background-color $bg-third
+    border-radius 24px
+
+  &-dashboard
+    color $third-color
+    text-align center
+    padding 10px 17px 11px
+    background-color $bg-third
+    border-radius 20px
+    min-width 110px
+
+  &-border
+    background-color rgb(255, 255, 255)
+    border 1px solid rgb(253, 96, 96)
+    color rgb(253, 96, 96)
+    padding 9.5px 15px
+    border-radius 20px
+
+  &-tr
+    display flex
+    align-items center
+    background-color transparent
+    color $main-color 
+    min-width 90px
+    justify-content center
+
+    svg 
+      margin-right 6px
+
+
+  &:hover
+    opacity .8

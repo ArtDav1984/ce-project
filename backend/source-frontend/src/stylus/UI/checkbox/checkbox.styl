@@ -1,0 +1,40 @@
+.checkbox-button
+  cursor pointer
+
+  .checkbox-button__input
+    margin 0
+    opacity 0
+    position absolute
+    width 16px
+    height 16px
+
+
+  .checkbox-button__control 
+    position relative
+    display inline-flex
+    justify-content center
+    align-items center
+    width 16px
+    height 16px
+    margin-right 10px
+    background-color $bg-fourth
+    box-shadow inset 4px 4px 10px $sh-second
+    border-radius 5px
+
+    svg
+      transition opacity .3s
+      opacity 0
+
+    &--dashbord
+      width 24px
+      height 24px
+      background-color $bg-third
+      border-radius 8px
+      box-shadow none
+
+      svg
+        margin-right 0!important
+
+
+  .checkbox-button__input:checked + .checkbox-button__control svg
+    opacity 1
