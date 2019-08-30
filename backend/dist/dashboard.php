@@ -128,7 +128,11 @@ $object = new Jobs;
       <div class="row">
         <div class="col-12">
           <div class="dashboard__header-bar">
-
+              <div id="open__jobs">
+            <?php
+            echo $object->getOpenJobs(0);
+            ?>
+              </div>
           </div>
         </div>
       </div>
@@ -154,6 +158,11 @@ $object = new Jobs;
         echo $object->getAllCompletedJobs();
         ?>
       </div>
+        <div id="open__jobs-completed">
+      <?php
+      echo $object->getOpenJobs(1);
+      ?>
+        </div>
 
     </div>
   </section>
@@ -168,6 +177,7 @@ $object = new Jobs;
 
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script type="text/javascript" src="src/js/bundle.js"></script>
+<script type="text/javascript" src="src/js/main.js"></script>
 
 
 </body>

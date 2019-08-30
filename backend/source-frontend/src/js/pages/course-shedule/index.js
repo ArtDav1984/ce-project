@@ -65,7 +65,7 @@ function invokeCourses() {
 
 invokeCourses();
 
-function ajaxCallCourses() {
+/*function ajaxCallCourses() {
   $.ajax({
     url: 'includes/setCourse.php',
     type: 'GET',
@@ -102,7 +102,7 @@ $(document).ready(function () {
       }
     });
   });
-});
+});*/
 
 export const Popup = popup;
 export {date, timeFrom, timeTo};

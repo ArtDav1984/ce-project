@@ -10,13 +10,15 @@ class Jobs extends Dbh
   public function getTeams()
   {
     // TODO organize SELECT from `jobcategories` table;
-      $db = $this->connect();
-	$teams = '';
+	  
+	$db = $this->connect();
+	$teams = '<li class="current">All</li>';
 	$query = $db->query("SELECT * FROM `jobcategories` WHERE active = 1");
+   
 	while ($row = $query->fetch()) {
 		$teams .= "<li value='{$row['categoryid']}'>".$row['category']."</li>";
 	}
-    return '<li class="current">All</li>'.$teams;
+    return $teams;
   }
 
   public function getDateDiff($totime, $fromtime)
@@ -33,13 +35,14 @@ class Jobs extends Dbh
 	  $db = $this->connect();
 	  $query = $db->query("SELECT SUM(persons), SUM(persons_found) FROM `jobs` WHERE active = 1 AND completed = $status");
 	  $row = $query->fetch();
-	  return ['persons' => $row['SUM(persons)'], 'persons_found' => $row['SUM(persons_found)']];
+	  return "<div><br>friends needed: {$row['SUM(persons)']}
+              <br>friends found: {$row['SUM(persons_found)']}</div>";
   }
 
 
   public function setJob()
   {
-    echo '<div class="post-edit__body">
+    echo '<div class="post-edit__body"><form id="setJob__form">
           <div class="post-edit__el-container post-edit__el-container--title">
             <svg
               width="15"
@@ -276,17 +279,28 @@ class Jobs extends Dbh
             <button id="post-edit__edit" name="editjob" class="button button-dashboard hidden">edit</button>
             <button id="post-edit__create" name="createjob" class="button button-dashboard">post</button>
           </div>
-        </div>';
+        </form></div>';
   }
 
   public function getAllJobs()
   {
-    $urgent = "job-item__wrapper--urgent";
+  	$db = $this->connect();
+  	$query = $db->query('SELECT j.jobid, j.jobname, j.timeto, j.timefrom, j.persons, j.persons_found,
+            j.jobcategoryid, j.urgent,
+            c.category category_name
+			FROM jobs as j
+			LEFT JOIN jobcategories AS c
+			ON c.categoryid=j.jobcategoryid
+			WHERE j.completed = 0')->fetchAll();
+	  
     // TODO Organize SELECT from `jobs` and `jobcategories` tables based on completed column
     // TODO check and add $urgant class
-
-    echo
-      '<div class="col-12 col-sm-6	col-md-6 col-lg-4	col-xl-3">
+	
+	  foreach ($query as $row)
+	  {
+		  $urgent = $row['urgent'] == 1 ? 'job-item__wrapper--urgent' : '';
+		  echo
+			  '<div class="col-12 col-sm-6	col-md-6 col-lg-4	col-xl-3">
               <section class="job-item__wrapper ' . $urgent . '"> 
                 <span class="job-item__repeat"
                   ><svg
@@ -316,8 +330,8 @@ class Jobs extends Dbh
                       fill="#FD6060"
                     />
                   </svg>
-                  <p class="job-item__title font-7">Breakfast Preperation</p>
-                  <p class="job-item__id hidden">1</p>
+                  <p class="job-item__title font-7">'.$row['jobname'].'</p>
+                  <p class="job-item__id hidden">'.$row['jobid'].'</p>
                   <p class="job-item__meet-place hidden">location</p>
                   <p class="job-item__meet-time hidden">period</p>
                   <p class="job-item__contact-person hidden">contactPerson</p>
@@ -337,7 +351,7 @@ class Jobs extends Dbh
                           fill="#FD6060"
                         />
                       </svg>
-                      <span class="job-item__hand font-5">'.$this->getOpenJobs(0)['persons'].'</span>&nbsp;<span class="font-5">registered: '.$this->getOpenJobs(0)['persons_found'].'</span>
+                      <span class="job-item__hand font-5">'.$row['persons'].'</span>&nbsp;<span class="font-5">registered: '.$row['persons_found'].'</span>
                     </li>
                     <li>
                       <svg
@@ -352,7 +366,7 @@ class Jobs extends Dbh
                           fill="#FD6060"
                         />
                       </svg>
-                      <span class="job-item__team font-5">(Category)<input name="post-edit-categoryId" class="hidden" value="(CategoryId)"/>
+                      <span class="job-item__team font-5">'.$row['category_name'].'<input name="post-edit-categoryId" class="hidden" value="(CategoryId)"/>
                       </span>
                     </li>
                     <li>
@@ -368,7 +382,7 @@ class Jobs extends Dbh
                           fill="#FD6060"
                         />
                       </svg>
-                      <span class="job-item__date font-5">04:00. Thursday, January 1</span>
+                      <span class="job-item__date font-5">'.gmdate('H:i. l, F j', strtotime($row['timefrom'])) .'</span>
                       <span class="job-item__date_full hidden">(timeFrom)</span>
                     </li>
                     <li>
@@ -384,7 +398,7 @@ class Jobs extends Dbh
                           fill="#FD6060"
                         />
                       </svg>
-                      <span class="job-item__time font-5">02:00 hour(s)</span
+                      <span class="job-item__time font-5">'.$this->getDateDiff($row['timeto'], $row['timefrom']).'</span
                       >
                     </li>
                   </ul>
@@ -403,14 +417,27 @@ class Jobs extends Dbh
                 </section>
               </section>
             </div>';
+	  }
   }
 
 
   public function getAllCompletedJobs()
   {
     // TODO Organize SELECT from `jobs` and `jobcategories` tables based on completed column
-    echo
-    '<div class="col-12 col-sm-6	col-md-6 col-lg-4	col-xl-3">
+	  $db = $this->connect();
+	  $query = $db->query('SELECT j.jobid, j.jobname, j.timeto, j.timefrom, j.persons, j.persons_found,
+            j.jobcategoryid, j.urgent,
+            c.category category_name
+			FROM jobs as j
+			LEFT JOIN jobcategories AS c
+			ON c.categoryid=j.jobcategoryid
+			WHERE j.completed = 1')->fetchAll();
+	  
+	  foreach ($query as $row)
+	  {
+		
+		  echo
+		  '<div class="col-12 col-sm-6	col-md-6 col-lg-4	col-xl-3">
 <section class="job-item__wrapper job-item__wrapper--ready">
                 <span class="job-item__repeat hidden"
                   ><svg
@@ -440,9 +467,9 @@ class Jobs extends Dbh
                       fill="#FD6060"
                     />
                   </svg>
-                  <p class="job-item__title font-7">Kitchen Cleaning
+                  <p class="job-item__title font-7">'.$row['jobname'].'
                   </p>
-                  <p class="job-item__id hidden">jobId
+                  <p class="job-item__id hidden">'.$row['jobid'].'
                   </p>
                 </header>
                 <section class="job-item">
@@ -460,8 +487,8 @@ class Jobs extends Dbh
                           fill="#FD6060"
                         />
                       </svg>
-                      <span class="job-item__hand font-5">'.$this->getOpenJobs(1)['persons'].'
-                    </span>&nbsp;<span class="font-5">registered: '.$this->getOpenJobs(1)['persons_found'].'</span>
+                      <span class="job-item__hand font-5">'.$row['persons'].'
+                    </span>&nbsp;<span class="font-5">registered: '.$row['persons_found'].'</span>
                     </li>
                     <li>
                       <svg
@@ -476,7 +503,7 @@ class Jobs extends Dbh
                           fill="#FD6060"
                         />
                       </svg>
-                      <span class="job-item__team font-5">(Category)<input name="post-edit-categoryId" class="hidden" value="CategoryId"/></span>
+                      <span class="job-item__team font-5">'.$row['category_name'].'<input name="post-edit-categoryId" class="hidden" value="CategoryId"/></span>
                     </li>
                     <li>
                       <svg
@@ -491,7 +518,7 @@ class Jobs extends Dbh
                           fill="#FD6060"
                         />
                       </svg>
-                      <span class="job-item__date font-5">July 31, 2019, 5:00 pm</span>
+                      <span class="job-item__date font-5">'.gmdate('H:i. l, F j', strtotime($row['timefrom'])) .'</span>
                     </li>
                     <li>
                       <svg
@@ -506,7 +533,7 @@ class Jobs extends Dbh
                           fill="#FD6060"
                         />
                       </svg>
-                      <span class="job-item__time font-5" data-from="1:00" data-to="2:15">01:00 hour(s).</span
+                      <span class="job-item__time font-5" data-from="1:00" data-to="2:15">'.$this->getDateDiff($row['timeto'], $row['timefrom']).'</span
                       >
                     </li>
                   </ul>
@@ -516,6 +543,7 @@ class Jobs extends Dbh
                   </div>
                 </section>
               </section></div> ';
+	  }
 
   }
 
