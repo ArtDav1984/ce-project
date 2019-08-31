@@ -286,12 +286,12 @@ class Jobs extends Dbh
   {
   	$db = $this->connect();
   	$query = $db->query('SELECT j.jobid, j.jobname, j.timeto, j.timefrom, j.persons, j.persons_found,
-            j.jobcategoryid, j.urgent,
+            j.jobcategoryid, j.location, j.period, j.contactperson, j.urgent,
             c.category category_name
 			FROM jobs as j
 			LEFT JOIN jobcategories AS c
 			ON c.categoryid=j.jobcategoryid
-			WHERE j.completed = 0')->fetchAll();
+			WHERE j.completed = 0 ORDER BY j.timeto DESC')->fetchAll();
 	  
     // TODO Organize SELECT from `jobs` and `jobcategories` tables based on completed column
     // TODO check and add $urgant class
@@ -332,9 +332,9 @@ class Jobs extends Dbh
                   </svg>
                   <p class="job-item__title font-7">'.$row['jobname'].'</p>
                   <p class="job-item__id hidden">'.$row['jobid'].'</p>
-                  <p class="job-item__meet-place hidden">location</p>
-                  <p class="job-item__meet-time hidden">period</p>
-                  <p class="job-item__contact-person hidden">contactPerson</p>
+                  <p class="job-item__meet-place hidden">'.$row['location'].'</p>
+                  <p class="job-item__meet-time hidden">'.$row['period'].'</p>
+                  <p class="job-item__contact-person hidden">'.$row['contactperson'].'</p>
                 </header>
                 <section class="job-item">
                   <ul>
@@ -366,8 +366,8 @@ class Jobs extends Dbh
                           fill="#FD6060"
                         />
                       </svg>
-                      <span class="job-item__team font-5">'.$row['category_name'].'<input name="post-edit-categoryId" class="hidden" value="(CategoryId)"/>
-                      </span>
+                      <span class="job-item__team font-5">'.$row['category_name']."<input name='post-edit-categoryId' class='hidden' value='{$row['jobcategoryid']}'/>".
+                      '</span>
                     </li>
                     <li>
                       <svg
@@ -383,7 +383,7 @@ class Jobs extends Dbh
                         />
                       </svg>
                       <span class="job-item__date font-5">'.gmdate('H:i. l, F j', strtotime($row['timefrom'])) .'</span>
-                      <span class="job-item__date_full hidden">(timeFrom)</span>
+                      <span class="job-item__date_full hidden">'.gmdate('H:i. l, F j', strtotime($row['timefrom'])) .'</span>
                     </li>
                     <li>
                       <svg
@@ -408,9 +408,9 @@ class Jobs extends Dbh
                   </div>
                   <div class="job-item__confirm hidden">
                     <p class="font-5">Are you sure to delete it?</p>
-                    <div>
-                      <input type="hidden" name="post-edit-id" value="(jobId)"/>
-                      <button type="button" class="delete-cancel button button-border">cancel</button>
+                    <div>'.
+                      "<input type='hidden' name='post-edit-id' value='{$row['jobid']}'/>".
+                      '<button type="button" class="delete-cancel button button-border">cancel</button>
                       <button class="delete-delete button button-dashboard" name="delete-job">delete</button>
                     </div>
                   </div>
