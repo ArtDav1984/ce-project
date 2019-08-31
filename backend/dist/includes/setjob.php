@@ -15,7 +15,7 @@ include_once './job.class.php';
     	echo $crud->delete($_POST['id']);
     }
 	
-	$object = new Jobs;
+	$object = new Jobs();
 	if (isset($_POST['action']) && $_POST['action'] == 'getAllJobs') {
 		$object->getAllJobs();
 	}
